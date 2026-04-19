@@ -31,7 +31,6 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* Grain texture overlay — subtle paper feel */
 body::before{
   content:'';
   position:fixed;
@@ -56,18 +55,17 @@ nav{
 .nav-inner{
   display:flex;align-items:center;justify-content:space-between;
   max-width:1200px;margin:0 auto;
-  padding:20px 32px;
+  padding:16px 32px;
 }
 .nav-brand{
-  font-family:'Cormorant Garamond',serif;
-  font-size:24px;font-weight:500;
-  color:var(--ink);text-decoration:none;
-  letter-spacing:.02em;
-  display:flex;align-items:baseline;gap:2px;
+  display:flex;align-items:center;
+  text-decoration:none;
+  height:40px;
 }
-.nav-brand em{
-  font-style:italic;color:var(--olive);
-  font-weight:500;
+.nav-brand img{
+  height:100%;width:auto;
+  display:block;
+  mix-blend-mode:multiply;
 }
 .nav-links{
   display:flex;align-items:center;gap:40px;
@@ -100,21 +98,54 @@ nav{
 }
 .nav-cta:hover{background:var(--olive);transform:translateY(-1px)}
 
-/* ───── HERO ───── */
+/* ───── HERO with image ───── */
 .hero{
   min-height:100vh;
   position:relative;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:140px 32px 100px;
-  max-width:1200px;margin:0 auto;
-  z-index:2;
-}
-.hero-grid{
   display:grid;
-  grid-template-columns:1fr;
-  gap:40px;align-items:center;
+  grid-template-columns:1.1fr 1fr;
+  gap:0;
+  padding-top:90px;
+  z-index:2;
+  overflow:hidden;
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+}
+
+.hero-content{
+  padding:80px 32px 80px 56px;
+  display:flex;flex-direction:column;justify-content:center;
   position:relative;
 }
+@media(max-width:900px){
+  .hero-content{padding:60px 32px}
+}
+
+.hero-image{
+  position:relative;
+  min-height:600px;
+  overflow:hidden;
+}
+.hero-image::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,var(--cream) 0%,transparent 20%);
+  z-index:2;
+  pointer-events:none;
+}
+@media(max-width:900px){
+  .hero-image{min-height:400px;order:-1}
+  .hero-image::before{background:linear-gradient(180deg,transparent 60%,var(--cream) 100%)}
+}
+.hero-image img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+}
+
 .hero-eyebrow{
   font-size:11px;font-weight:400;
   color:var(--olive);letter-spacing:.35em;
@@ -128,12 +159,12 @@ nav{
 }
 .hero-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(52px,9vw,128px);
+  font-size:clamp(48px,7vw,92px);
   font-weight:400;
-  line-height:.96;
+  line-height:.98;
   letter-spacing:-.02em;
   color:var(--ink);
-  margin-bottom:40px;
+  margin-bottom:32px;
 }
 .hero-title .line-1{display:block}
 .hero-title .line-2{
@@ -144,11 +175,11 @@ nav{
   padding-left:0.2em;
 }
 .hero-sub{
-  font-size:clamp(17px,1.6vw,20px);
+  font-size:clamp(16px,1.4vw,18px);
   color:var(--ink-soft);
   line-height:1.75;
-  max-width:520px;
-  margin-bottom:48px;
+  max-width:460px;
+  margin-bottom:40px;
   font-weight:300;
 }
 .hero-actions{
@@ -182,27 +213,128 @@ nav{
 }
 .btn-ghost:hover{color:var(--olive);border-bottom-color:var(--olive)}
 
-.hero-meta{
-  position:absolute;
-  right:32px;top:50%;
-  transform:translateY(-50%) rotate(90deg);
-  transform-origin:right center;
-  font-size:11px;font-weight:400;
-  color:var(--muted);letter-spacing:.3em;
-  text-transform:uppercase;
-  white-space:nowrap;
+.hero-badges{
+  display:flex;align-items:center;gap:24px;
+  margin-top:60px;padding-top:32px;
+  border-top:1px solid var(--line);
 }
-@media(max-width:1024px){
-  .hero-meta{display:none}
+.hero-badge{
+  display:flex;flex-direction:column;
+}
+.hero-badge-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:500;
+  color:var(--olive);line-height:1;
+}
+.hero-badge-label{
+  font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted);
+  margin-top:6px;font-weight:400;
 }
 
-/* Decorative vertical line */
-.hero-line{
-  position:absolute;
-  left:50%;bottom:-60px;
-  width:1px;height:120px;
-  background:linear-gradient(to bottom,transparent,var(--stone),transparent);
+/* ───── REVIEWS TICKER ───── */
+.reviews-ticker{
+  padding:60px 0;
+  background:var(--paper);
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+  position:relative;
+  z-index:2;
+  overflow:hidden;
+}
+.reviews-ticker-head{
+  text-align:center;
+  margin-bottom:36px;
+  padding:0 32px;
+}
+.reviews-rating{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--cream);
+  border:1px solid var(--line);
+  border-radius:100px;
+  padding:8px 18px;
+  margin-bottom:14px;
+}
+.reviews-stars{color:#D4A84A;letter-spacing:2px;font-size:14px}
+.reviews-rating-text{
+  font-size:13px;color:var(--ink);
+  font-weight:500;letter-spacing:.04em;
+}
+.reviews-ticker-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-style:italic;
+  color:var(--muted);
+  font-weight:400;
+  letter-spacing:.02em;
+}
+.reviews-track-wrap{
+  position:relative;
+  width:100%;
+}
+.reviews-track-wrap::before,
+.reviews-track-wrap::after{
+  content:'';
+  position:absolute;top:0;bottom:0;
+  width:120px;
   z-index:3;
+  pointer-events:none;
+}
+.reviews-track-wrap::before{
+  left:0;background:linear-gradient(90deg,var(--paper) 0%,transparent 100%);
+}
+.reviews-track-wrap::after{
+  right:0;background:linear-gradient(-90deg,var(--paper) 0%,transparent 100%);
+}
+.reviews-track{
+  display:flex;gap:24px;
+  width:max-content;
+  animation:ticker 90s linear infinite;
+  padding:0 12px;
+}
+.reviews-track:hover{animation-play-state:paused}
+@keyframes ticker{
+  from{transform:translateX(0)}
+  to{transform:translateX(calc(-50% - 12px))}
+}
+.review-card{
+  flex:0 0 360px;
+  background:var(--cream);
+  border:1px solid var(--line-soft);
+  border-radius:16px;
+  padding:24px 26px;
+  transition:all .3s;
+}
+.review-card:hover{
+  border-color:var(--olive);
+  transform:translateY(-2px);
+}
+.review-stars{
+  color:#D4A84A;
+  letter-spacing:2px;
+  font-size:13px;
+  margin-bottom:10px;
+}
+.review-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;
+  font-style:italic;
+  color:var(--ink);
+  line-height:1.55;
+  margin-bottom:16px;
+  min-height:75px;
+}
+.review-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:14px;
+  border-top:1px solid var(--line-soft);
+}
+.review-author{
+  font-size:12px;font-weight:500;
+  color:var(--ink);letter-spacing:.03em;
+}
+.review-date{
+  font-size:11px;color:var(--muted);
+  letter-spacing:.06em;
 }
 
 /* ───── MANIFESTO ───── */
@@ -254,7 +386,7 @@ nav{
   font-weight:400;
 }
 
-/* ───── SOINS SECTION ───── */
+/* ───── SOINS with photos ───── */
 .soins{
   padding:140px 32px 100px;
   max-width:1200px;margin:0 auto;
@@ -291,71 +423,68 @@ nav{
   .soins-head{grid-template-columns:1fr;gap:30px}
 }
 
-.soins-grid{
+.soin-block{
   display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:24px;
+  grid-template-columns:1fr 1fr;
+  gap:48px;
+  align-items:center;
+  margin-bottom:80px;
 }
-.soin-card{
-  position:relative;
-  padding:44px 36px;
-  background:var(--paper);
-  border:1px solid var(--line-soft);
-  border-radius:2px;
-  transition:all .5s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow:hidden;
-  cursor:default;
-}
-.soin-card:hover{
-  border-color:var(--olive);
-  transform:translateY(-4px);
-}
-.soin-card::before{
-  content:'';position:absolute;
-  top:0;left:0;width:100%;height:2px;
-  background:var(--olive);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .5s;
-}
-.soin-card:hover::before{transform:scaleX(1)}
-
-/* Asymmetric grid */
-.soin-1{grid-column:span 7;min-height:340px}
-.soin-2{grid-column:span 5;min-height:340px;background:var(--cream-2)}
-.soin-3{grid-column:span 5;min-height:300px;background:var(--cream-2)}
-.soin-4{grid-column:span 7;min-height:300px}
+.soin-block.reverse{grid-template-areas:'text image'}
+.soin-block.reverse .soin-block-image{grid-area:image}
+.soin-block.reverse .soin-block-text{grid-area:text}
 @media(max-width:900px){
-  .soin-1,.soin-2,.soin-3,.soin-4{grid-column:span 12;min-height:280px}
+  .soin-block{grid-template-columns:1fr;gap:32px}
+  .soin-block.reverse .soin-block-image{grid-area:auto}
 }
-
-.soin-num{
-  position:absolute;top:24px;right:32px;
+.soin-block-image{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+  aspect-ratio:3/4;
+  max-height:560px;
+}
+.soin-block-image img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 1.2s ease;
+}
+.soin-block:hover .soin-block-image img{transform:scale(1.03)}
+.soin-block-num{
   font-family:'Cormorant Garamond',serif;
   font-size:14px;font-style:italic;
-  color:var(--stone);letter-spacing:.08em;
+  color:var(--ochre);letter-spacing:.1em;
+  margin-bottom:16px;
 }
-.soin-icon-wrap{
-  width:44px;height:44px;
-  border-radius:50%;
-  border:1px solid var(--olive);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:28px;
-}
-.soin-icon{width:20px;height:20px;color:var(--olive)}
-.soin-name{
+.soin-block-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(28px,3.2vw,38px);
-  font-weight:400;
-  line-height:1.1;
-  color:var(--ink);
-  margin-bottom:14px;
-  letter-spacing:-.005em;
+  font-size:clamp(32px,4vw,48px);
+  font-weight:400;line-height:1.1;
+  color:var(--ink);margin-bottom:20px;
+  letter-spacing:-.01em;
 }
-.soin-name em{font-style:italic;color:var(--olive)}
-.soin-desc{
-  font-size:15px;color:var(--ink-soft);
-  line-height:1.75;font-weight:300;
-  max-width:380px;
+.soin-block-title em{font-style:italic;color:var(--olive)}
+.soin-block-desc{
+  font-size:15.5px;color:var(--ink-soft);
+  line-height:1.8;font-weight:300;
+  margin-bottom:24px;
+}
+.soin-block-items{
+  list-style:none;
+  display:flex;flex-direction:column;gap:10px;
+}
+.soin-block-item{
+  display:flex;justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid var(--line-soft);
+  font-size:14px;
+}
+.soin-block-item-name{color:var(--ink);font-weight:400}
+.soin-block-item-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;font-weight:500;
+  color:var(--olive);font-style:italic;
 }
 
 /* ───── PHILOSOPHY ───── */
@@ -447,9 +576,7 @@ nav{
   padding-top:24px;
   border-top:1px solid rgba(245,240,232,.1);
 }
-.horaires-list{
-  list-style:none;
-}
+.horaires-list{list-style:none}
 .horaires-item{
   display:flex;justify-content:space-between;align-items:baseline;
   padding:18px 0;
@@ -497,9 +624,7 @@ nav{
   position:relative;z-index:2;
 }
 .contact-inner{max-width:1100px;margin:0 auto}
-.contact-head{
-  text-align:center;margin-bottom:70px;
-}
+.contact-head{text-align:center;margin-bottom:70px}
 .contact-eyebrow{
   font-size:11px;font-weight:400;
   color:var(--olive);letter-spacing:.35em;
@@ -520,9 +645,7 @@ nav{
   border:1px solid var(--line-soft);
   margin-bottom:40px;
 }
-@media(max-width:768px){
-  .contact-grid{grid-template-columns:1fr}
-}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
 .contact-cell{
   padding:44px 32px;
   background:var(--paper);
@@ -570,12 +693,8 @@ footer{
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:24px;
 }
-.footer-brand{
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;font-weight:500;
-  color:var(--ink);
-}
-.footer-brand em{font-style:italic;color:var(--olive)}
+.footer-brand{height:30px;display:flex;align-items:center}
+.footer-brand img{height:100%;width:auto;mix-blend-mode:multiply}
 .footer-links{display:flex;gap:28px}
 .footer-links a{
   font-size:12px;color:var(--muted);
@@ -597,7 +716,6 @@ footer{
 }
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* Staggered character animation for hero */
 @keyframes fadeUpSlow{
   from{opacity:0;transform:translateY(24px)}
   to{opacity:1;transform:translateY(0)}
@@ -607,38 +725,60 @@ footer{
 .hero-title .line-2{animation:fadeUpSlow 1.2s ease-out .35s both}
 .hero-sub{animation:fadeUpSlow 1s ease-out .55s both}
 .hero-actions{animation:fadeUpSlow 1s ease-out .75s both}
+.hero-badges{animation:fadeUpSlow 1s ease-out .95s both}
+.hero-image img{animation:fadeUpSlow 1.4s ease-out both}
 
-/* ───── RESPONSIVE ───── */
 @media(max-width:768px){
-  .nav-inner{padding:16px 20px}
+  .nav-inner{padding:12px 20px}
   .nav-links{display:none}
-  .hero{padding:120px 20px 80px}
+  .hero{padding-top:70px}
+  .hero-content{padding:40px 24px 60px}
   .manifesto,.soins,.philo,.horaires,.cta-section,.contact{padding:80px 20px}
   .quote-mark{display:none}
   .hero-actions{flex-direction:column;align-items:stretch;width:100%}
   .hero-actions a{justify-content:center;text-align:center}
   .btn-ghost{border-bottom:none;border:1px solid var(--ink);padding:17px 24px;border-radius:100px}
+  .hero-badges{gap:18px}
+  .hero-badge-num{font-size:22px}
+  .review-card{flex:0 0 280px;padding:20px}
+  .soin-block{margin-bottom:60px}
 }
 `
 
+const REVIEWS = [
+  { text: "La douceur d'Anaïs se retrouve dans chaque soin que j'ai pu réaliser à son institut. Je me hâte pour mon prochain rdv dans ce véritable cocon aux odeurs florales.", author: "Emeline", date: "Avril 2026" },
+  { text: "Tout simplement merci pour ce merveilleux soin du visage, Anaïs est une fée que je recommande vivement.", author: "Client Planity", date: "Avril 2026" },
+  { text: "Franchement le meilleur massage de ma vie. Habituée aux spas et grands hôtels, j'avais arrêté faute de prestations à la hauteur. Ici, tout était parfait.", author: "Laura", date: "Avril 2026" },
+  { text: "Super moment détente, je recommande sans hésiter.", author: "Stéphanie", date: "Avril 2026" },
+  { text: "Comme toujours au top.", author: "Client fidèle", date: "Avril 2026" },
+  { text: "Fabuleux ! Merci Anaïs.", author: "Client Planity", date: "Avril 2026" },
+  { text: "Comme d'habitude un moment suspendu dans cet endroit magique. Anaïs a des mains de fée. Je la recommande vivement.", author: "Client Planity", date: "Mars 2026" },
+  { text: "Tout simplement incroyable !", author: "Client Planity", date: "Mars 2026" },
+  { text: "Excellent moment ! Soin de grande qualité, accueil chaleureux et professionnel. Je suis repartie totalement détendue.", author: "Client Planity", date: "Février 2026" },
+  { text: "Anaïs est douce et bienveillante. Elle nous reçoit dans un espace cocooning et chaleureux. Les soins sont extraordinaires et les épilations sans douleur.", author: "Client Planity", date: "Décembre 2025" },
+  { text: "Toujours un plaisir d'être reçue chez Anaïs. Des soins de qualité dans un cadre apaisant.", author: "Client fidèle", date: "Décembre 2025" },
+  { text: "Un soin impeccable avec les mains expertes d'Anaïs. Un profond moment de détente.", author: "Client Planity", date: "Novembre 2025" },
+  { text: "La magie a opéré mais surtout Anaïs. Moment merveilleux. Une merveille, un moment suspendu. Lieu à découvrir absolument.", author: "Client Planity", date: "Novembre 2025" },
+]
+
 export default function Home() {
+  const reviewsDoubled = [...REVIEWS, ...REVIEWS]
+
   return (
     <>
       <Head>
         <title>L'Ansouisienne — Institut de beauté confidentiel · Ansouis, Luberon</title>
         <meta name="description" content="L'institut confidentiel d'Ansouis où Anaïs Gambra efface par ses mains le stress et les tracas du quotidien. Soins du visage, massages, épilations, beauté des ongles au cœur du Luberon." />
-        <meta name="keywords" content="institut beauté Ansouis, massage Luberon, soin visage Ansouis, épilation Luberon, Anaïs Gambra, L'Ansouisienne, esthéticienne Ansouis, beauté Luberon, massage relaxant Ansouis, spa Ansouis, onglerie Ansouis" />
+        <meta name="keywords" content="institut beauté Ansouis, massage Luberon, soin visage Ansouis, épilation Luberon, Anaïs Gambra, L'Ansouisienne, esthéticienne Ansouis, beauté Luberon, massage relaxant Ansouis, spa Ansouis, onglerie Ansouis, Hydraskin Ansouis" />
         <meta name="author" content="Anaïs Gambra — L'Ansouisienne" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="L'Ansouisienne — Institut de beauté · Ansouis" />
         <meta property="og:description" content="Un moment hors du temps. L'institut confidentiel d'Ansouis au cœur du Luberon." />
         <meta property="og:url" content="https://lansouisienne.fr" />
         <meta property="og:locale" content="fr_FR" />
-        <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href="https://lansouisienne.fr" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {/* JSON-LD structured data — critical for Google Business */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -646,7 +786,8 @@ export default function Home() {
               "@context": "https://schema.org",
               "@type": "BeautySalon",
               "name": "L'Ansouisienne",
-              "image": "https://lansouisienne.fr/og-image.jpg",
+              "image": "https://lansouisienne.fr/images/cabine-vue.jpg",
+              "logo": "https://lansouisienne.fr/images/logo.jpg",
               "url": "https://lansouisienne.fr",
               "telephone": "+33629492580",
               "email": "anais.gambra@gmail.com",
@@ -664,9 +805,14 @@ export default function Home() {
                 "longitude": 5.4686
               },
               "openingHoursSpecification": [
-                { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday"], "opens": "09:00", "closes": "17:00" },
+                { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Thursday","Friday"], "opens": "09:00", "closes": "17:00" },
                 { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday","Saturday"], "opens": "09:00", "closes": "12:30" }
               ],
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5.0",
+                "reviewCount": "196"
+              },
               "sameAs": [
                 "https://www.instagram.com/lansouisienne/",
                 "https://www.facebook.com/lansouisienne/",
@@ -683,10 +829,11 @@ export default function Home() {
 
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
-      {/* NAV */}
       <nav>
         <div className="nav-inner">
-          <a href="#" className="nav-brand">L'<em>Ansouisienne</em></a>
+          <a href="#" className="nav-brand" aria-label="L'Ansouisienne Institut">
+            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+          </a>
           <div className="nav-links">
             <a href="#soins">Soins</a>
             <a href="#philosophie">Philosophie</a>
@@ -697,32 +844,63 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* HERO */}
       <section className="hero">
-        <div className="hero-meta">Ansouis · Luberon · Provence</div>
-        <div className="hero-grid">
-          <div>
-            <div className="hero-eyebrow">Institut confidentiel</div>
-            <h1 className="hero-title">
-              <span className="line-1">Un moment</span>
-              <span className="line-2">hors du temps.</span>
-            </h1>
-            <p className="hero-sub">Niché au cœur du village d'Ansouis, L'Ansouisienne est l'institut où les mains d'Anaïs effacent le stress et les tracas du quotidien — entre colline et art, nature et douceur.</p>
-            <div className="hero-actions">
-              <a href="https://www.planity.com/lansouisienne-84240" target="_blank" rel="noopener" className="btn-primary">
-                Réserver un soin
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-              <a href="#soins" className="btn-ghost">Découvrir les soins</a>
+        <div className="hero-content">
+          <div className="hero-eyebrow">Institut confidentiel</div>
+          <h1 className="hero-title">
+            <span className="line-1">Un moment</span>
+            <span className="line-2">hors du temps.</span>
+          </h1>
+          <p className="hero-sub">Niché au cœur du village d'Ansouis, L'Ansouisienne est l'institut où les mains d'Anaïs effacent le stress et les tracas du quotidien — entre colline et art, nature et douceur.</p>
+          <div className="hero-actions">
+            <a href="https://www.planity.com/lansouisienne-84240" target="_blank" rel="noopener" className="btn-primary">
+              Réserver un soin
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+            <a href="#soins" className="btn-ghost">Découvrir les soins</a>
+          </div>
+          <div className="hero-badges">
+            <div className="hero-badge">
+              <div className="hero-badge-num">5,0★</div>
+              <div className="hero-badge-label">196 avis clients</div>
+            </div>
+            <div className="hero-badge">
+              <div className="hero-badge-num">Ansouis</div>
+              <div className="hero-badge-label">Cœur du Luberon</div>
             </div>
           </div>
         </div>
-        <div className="hero-line"></div>
+        <div className="hero-image">
+          <img src="/images/cabine-vue.jpg" alt="Cabine de soin L'Ansouisienne avec vue sur la colline du Luberon" />
+        </div>
       </section>
 
-      {/* MANIFESTO */}
+      <section className="reviews-ticker">
+        <div className="reviews-ticker-head">
+          <div className="reviews-rating">
+            <span className="reviews-stars">★★★★★</span>
+            <span className="reviews-rating-text">5,0 · 196 avis</span>
+          </div>
+          <div className="reviews-ticker-sub">Ce que disent nos clientes</div>
+        </div>
+        <div className="reviews-track-wrap">
+          <div className="reviews-track">
+            {reviewsDoubled.map((r, i) => (
+              <div key={i} className="review-card">
+                <div className="review-stars">★★★★★</div>
+                <div className="review-text">« {r.text} »</div>
+                <div className="review-meta">
+                  <span className="review-author">— {r.author}</span>
+                  <span className="review-date">{r.date}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="manifesto reveal">
         <div className="manifesto-inner">
           <div className="quote-mark">"</div>
@@ -734,7 +912,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SOINS */}
       <section className="soins" id="soins">
         <div className="soins-head reveal">
           <div>
@@ -744,46 +921,72 @@ export default function Home() {
           <p className="soins-intro">Quatre univers de soins, pensés avec soin et prodigués avec douceur. Chaque prestation est une parenthèse — un temps pour soi, pour se reconnecter.</p>
         </div>
 
-        <div className="soins-grid">
-          <div className="soin-card soin-1 reveal">
-            <span className="soin-num">01</span>
-            <div className="soin-icon-wrap">
-              <svg className="soin-icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" strokeWidth="1"/><circle cx="10" cy="10" r="2.5" fill="currentColor"/></svg>
-            </div>
-            <h3 className="soin-name">Soins du <em>visage</em></h3>
-            <p className="soin-desc">Des soins profonds et personnalisés pour révéler l'éclat naturel de votre peau. Nettoyage, hydratation, anti-âge — adaptés à votre type de peau et à vos besoins du moment.</p>
+        <div className="soin-block reveal">
+          <div className="soin-block-image">
+            <img src="/images/hydraskin.jpg" alt="Soin du visage Hydraskin chez L'Ansouisienne" />
           </div>
-
-          <div className="soin-card soin-2 reveal">
-            <span className="soin-num">02</span>
-            <div className="soin-icon-wrap">
-              <svg className="soin-icon" viewBox="0 0 20 20" fill="none"><path d="M4 10c2-4 6-4 8 0 2 4 6 4 4-1" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/></svg>
-            </div>
-            <h3 className="soin-name"><em>Massages</em></h3>
-            <p className="soin-desc">Relaxation profonde, bien-être et lâcher-prise. Un vrai moment suspendu dans un cadre apaisant.</p>
+          <div className="soin-block-text">
+            <div className="soin-block-num">01 · Soins du visage</div>
+            <h3 className="soin-block-title">L'éclat <em>retrouvé.</em></h3>
+            <p className="soin-block-desc">Des soins profonds et personnalisés pour révéler l'éclat naturel de votre peau. Hydratation, nettoyage en profondeur, anti-âge — adaptés à votre type de peau et à vos besoins du moment.</p>
+            <ul className="soin-block-items">
+              <li className="soin-block-item"><span className="soin-block-item-name">Hydraskin · 60 min</span><span className="soin-block-item-price">90€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Soin découverte · 45 min</span><span className="soin-block-item-price">55€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Apaisant Sensi Phyt's · 50 min</span><span className="soin-block-item-price">60€</span></li>
+            </ul>
           </div>
+        </div>
 
-          <div className="soin-card soin-3 reveal">
-            <span className="soin-num">03</span>
-            <div className="soin-icon-wrap">
-              <svg className="soin-icon" viewBox="0 0 20 20" fill="none"><path d="M10 3c3 0 5 2.5 5 6s-2 6-5 6-5-2.5-5-6 2-6 5-6z" stroke="currentColor" strokeWidth="1"/><path d="M10 3v12M5 9h10" stroke="currentColor" strokeWidth="0.5" opacity="0.5"/></svg>
-            </div>
-            <h3 className="soin-name"><em>Épilations</em></h3>
-            <p className="soin-desc">Douces, précises, respectueuses. Visage, corps, maillot — avec soin et savoir-faire.</p>
+        <div className="soin-block reverse reveal">
+          <div className="soin-block-image">
+            <img src="/images/anais-massage.jpg" alt="Massage relaxant par Anaïs à L'Ansouisienne" />
           </div>
+          <div className="soin-block-text">
+            <div className="soin-block-num">02 · Massages</div>
+            <h3 className="soin-block-title">Un moment <em>suspendu.</em></h3>
+            <p className="soin-block-desc">Relaxation profonde, bien-être, lâcher-prise. Un vrai moment suspendu dans un cadre apaisant, où chaque geste est pensé pour vous ressourcer.</p>
+            <ul className="soin-block-items">
+              <li className="soin-block-item"><span className="soin-block-item-name">Relaxant sur mesure · 60 min</span><span className="soin-block-item-price">75€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Relaxant sur mesure · 90 min</span><span className="soin-block-item-price">105€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Deep Tissue · 60 min</span><span className="soin-block-item-price">75€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Rituel Signature · 80 min</span><span className="soin-block-item-price">110€</span></li>
+            </ul>
+          </div>
+        </div>
 
-          <div className="soin-card soin-4 reveal">
-            <span className="soin-num">04</span>
-            <div className="soin-icon-wrap">
-              <svg className="soin-icon" viewBox="0 0 20 20" fill="none"><path d="M7 4c0 3 0 8 3 12M13 4c0 3 0 8-3 12" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/></svg>
-            </div>
-            <h3 className="soin-name">Beauté des <em>ongles</em></h3>
-            <p className="soin-desc">Manucure, vernis semi-permanent, prothèse ongulaire. Des mains et des pieds soignés, toujours avec finesse et attention au détail.</p>
+        <div className="soin-block reveal">
+          <div className="soin-block-image">
+            <img src="/images/soin-visage.jpg" alt="Soin du visage apaisant à L'Ansouisienne" />
+          </div>
+          <div className="soin-block-text">
+            <div className="soin-block-num">03 · Soins du corps</div>
+            <h3 className="soin-block-title">Nettoyer, <em>libérer.</em></h3>
+            <p className="soin-block-desc">Du soin du dos drainant au rituel jambes légères, des soins techniques et enveloppants pour libérer le corps de ses tensions et relancer la circulation.</p>
+            <ul className="soin-block-items">
+              <li className="soin-block-item"><span className="soin-block-item-name">Soin complet du dos · 40 min</span><span className="soin-block-item-price">55€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Soin jambes légères · 40 min</span><span className="soin-block-item-price">55€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Cure jambes légères · 5 séances</span><span className="soin-block-item-price">225€</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="soin-block reverse reveal">
+          <div className="soin-block-image">
+            <img src="/images/cabine-vue.jpg" alt="Cabine L'Ansouisienne avec vue sur la nature" />
+          </div>
+          <div className="soin-block-text">
+            <div className="soin-block-num">04 · Mise en beauté</div>
+            <h3 className="soin-block-title">Raffiner le <em>détail.</em></h3>
+            <p className="soin-block-desc">Manucure, pédicure, pose de vernis semi-permanent, rehaussement de cils, épilations. Des gestes précis, de la douceur, pour prendre soin de chaque détail.</p>
+            <ul className="soin-block-items">
+              <li className="soin-block-item"><span className="soin-block-item-name">Manucure cocooning</span><span className="soin-block-item-price">45€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Beauté des pieds cocooning</span><span className="soin-block-item-price">70€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Rehaussement de cils</span><span className="soin-block-item-price">50€</span></li>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* PHILOSOPHY */}
       <section className="philo" id="philosophie">
         <div className="philo-inner">
           <div className="philo-left reveal">
@@ -825,7 +1028,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HORAIRES */}
       <section className="horaires" id="horaires">
         <div className="horaires-inner">
           <div className="reveal">
@@ -839,14 +1041,13 @@ export default function Home() {
             <li className="horaires-item"><span className="horaires-day">Mardi</span><span className="horaires-time">9h — 17h</span></li>
             <li className="horaires-item"><span className="horaires-day">Mercredi</span><span className="horaires-time">9h — 12h30</span></li>
             <li className="horaires-item"><span className="horaires-day">Jeudi</span><span className="horaires-time">9h — 17h</span></li>
-            <li className="horaires-item"><span className="horaires-day">Vendredi</span><span className="horaires-time closed">Fermé</span></li>
+            <li className="horaires-item"><span className="horaires-day">Vendredi</span><span className="horaires-time">9h — 17h</span></li>
             <li className="horaires-item"><span className="horaires-day">Samedi</span><span className="horaires-time">9h — 12h30</span></li>
             <li className="horaires-item"><span className="horaires-day">Dimanche</span><span className="horaires-time closed">Fermé</span></li>
           </ul>
         </div>
       </section>
 
-      {/* CTA */}
       <section className="cta-section">
         <div className="cta-inner reveal">
           <h2 className="cta-title">Offrez-vous<br /><em>une parenthèse.</em></h2>
@@ -858,7 +1059,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONTACT */}
       <section className="contact" id="contact">
         <div className="contact-inner">
           <div className="contact-head reveal">
@@ -899,10 +1099,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer>
         <div className="footer-inner">
-          <div className="footer-brand">L'<em>Ansouisienne</em></div>
+          <div className="footer-brand">
+            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+          </div>
           <div className="footer-links">
             <a href="https://www.instagram.com/lansouisienne/" target="_blank" rel="noopener">Instagram</a>
             <a href="https://www.facebook.com/lansouisienne/" target="_blank" rel="noopener">Facebook</a>
