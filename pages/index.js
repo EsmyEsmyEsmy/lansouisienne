@@ -60,16 +60,15 @@ nav{
 .nav-brand{
   display:flex;align-items:center;
   text-decoration:none;
-  font-family:'Cormorant Garamond',serif;
-  font-size:26px;
-  font-style:italic;
-  font-weight:500;
-  color:var(--ink);
-  letter-spacing:-.01em;
-  line-height:1;
-  transition:color .2s;
+  height:44px;
+  transition:opacity .2s;
 }
-.nav-brand:hover{color:var(--olive)}
+.nav-brand:hover{opacity:.75}
+.nav-brand img{
+  height:100%;width:auto;
+  display:block;
+  mix-blend-mode:multiply;
+}
 .nav-links{
   display:flex;align-items:center;gap:40px;
 }
@@ -433,12 +432,14 @@ nav{
   align-items:center;
   margin-bottom:80px;
 }
-.soin-block.reverse{grid-template-areas:'text image'}
-.soin-block.reverse .soin-block-image{grid-area:image}
-.soin-block.reverse .soin-block-text{grid-area:text}
+/* Desktop reverse: image à droite, texte à gauche */
+.soin-block.reverse .soin-block-image{order:2}
+.soin-block.reverse .soin-block-text{order:1}
 @media(max-width:900px){
   .soin-block{grid-template-columns:1fr;gap:32px}
-  .soin-block.reverse .soin-block-image{grid-area:auto}
+  /* Mobile : toujours image au-dessus, texte en dessous — cohérence visuelle */
+  .soin-block .soin-block-image{order:1 !important}
+  .soin-block .soin-block-text{order:2 !important}
 }
 .soin-block-image{
   position:relative;
@@ -697,16 +698,17 @@ footer{
   flex-wrap:wrap;gap:24px;
 }
 .footer-brand{
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;
-  font-style:italic;
-  font-weight:500;
-  color:var(--ink);
-  letter-spacing:-.005em;
+  height:34px;
+  display:flex;align-items:center;
   text-decoration:none;
-  transition:color .2s;
+  transition:opacity .2s;
 }
-.footer-brand:hover{color:var(--olive)}
+.footer-brand:hover{opacity:.75}
+.footer-brand img{
+  height:100%;width:auto;
+  display:block;
+  mix-blend-mode:multiply;
+}
 .footer-links{display:flex;gap:28px;flex-wrap:wrap;justify-content:center}
 .footer-links a{
   font-size:12px;color:var(--muted);
@@ -843,7 +845,9 @@ export default function Home() {
 
       <nav>
         <div className="nav-inner">
-          <a href="#" className="nav-brand" aria-label="L'Ansouisienne Institut">l'Ansouisienne</a>
+          <a href="#" className="nav-brand" aria-label="L'Ansouisienne Institut">
+            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+          </a>
           <div className="nav-links">
             <a href="#soins">Soins</a>
             <a href="#philosophie">Philosophie</a>
@@ -940,9 +944,10 @@ export default function Home() {
             <h3 className="soin-block-title">L'éclat <em>retrouvé.</em></h3>
             <p className="soin-block-desc">Des soins profonds et personnalisés pour révéler l'éclat naturel de votre peau. Hydratation, nettoyage en profondeur, anti-âge — adaptés à votre type de peau et à vos besoins du moment.</p>
             <ul className="soin-block-items">
-              <li className="soin-block-item"><span className="soin-block-item-name">Hydraskin · 60 min</span><span className="soin-block-item-price">90€</span></li>
-              <li className="soin-block-item"><span className="soin-block-item-name">Soin découverte · 45 min</span><span className="soin-block-item-price">55€</span></li>
-              <li className="soin-block-item"><span className="soin-block-item-name">Apaisant Sensi Phyt's · 50 min</span><span className="soin-block-item-price">60€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Hydraskin · Nettoyant en profondeur</span><span className="soin-block-item-price">90€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Panacée · Anti-âge global</span><span className="soin-block-item-price">110€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Multi Vita · Anti-rides</span><span className="soin-block-item-price">80€</span></li>
+              <li className="soin-block-item"><span className="soin-block-item-name">Aquaphyt's · Hydratant</span><span className="soin-block-item-price">75€</span></li>
             </ul>
           </div>
         </div>
@@ -953,7 +958,7 @@ export default function Home() {
           </div>
           <div className="soin-block-text">
             <div className="soin-block-num">02 · Massages</div>
-            <h3 className="soin-block-title">Un moment <em>suspendu.</em></h3>
+            <h3 className="soin-block-title">Le temps <em>suspendu.</em></h3>
             <p className="soin-block-desc">Relaxation profonde, bien-être, lâcher-prise. Un vrai moment suspendu dans un cadre apaisant, où chaque geste est pensé pour vous ressourcer.</p>
             <ul className="soin-block-items">
               <li className="soin-block-item"><span className="soin-block-item-name">Relaxant sur mesure · 60 min</span><span className="soin-block-item-price">75€</span></li>
@@ -970,7 +975,7 @@ export default function Home() {
           </div>
           <div className="soin-block-text">
             <div className="soin-block-num">03 · Soins du corps</div>
-            <h3 className="soin-block-title">Nettoyer, <em>libérer.</em></h3>
+            <h3 className="soin-block-title">Le corps <em>libéré.</em></h3>
             <p className="soin-block-desc">Du soin du dos drainant au rituel jambes légères, des soins techniques et enveloppants pour libérer le corps de ses tensions et relancer la circulation.</p>
             <ul className="soin-block-items">
               <li className="soin-block-item"><span className="soin-block-item-name">Soin complet du dos · 40 min</span><span className="soin-block-item-price">55€</span></li>
@@ -986,7 +991,7 @@ export default function Home() {
           </div>
           <div className="soin-block-text">
             <div className="soin-block-num">04 · Mise en beauté</div>
-            <h3 className="soin-block-title">Raffiner le <em>détail.</em></h3>
+            <h3 className="soin-block-title">Le geste <em>précis.</em></h3>
             <p className="soin-block-desc">Manucure, pédicure, pose de vernis semi-permanent, rehaussement de cils, épilations. Des gestes précis, de la douceur, pour prendre soin de chaque détail.</p>
             <ul className="soin-block-items">
               <li className="soin-block-item"><span className="soin-block-item-name">Manucure cocooning</span><span className="soin-block-item-price">45€</span></li>
@@ -1111,7 +1116,9 @@ export default function Home() {
 
       <footer>
         <div className="footer-inner">
-          <a href="/" className="footer-brand">l'Ansouisienne</a>
+          <a href="/" className="footer-brand" aria-label="L'Ansouisienne Institut">
+            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+          </a>
           <div className="footer-links">
             <a href="/mentions-legales">Mentions légales</a>
             <a href="/confidentialite">Confidentialité</a>
