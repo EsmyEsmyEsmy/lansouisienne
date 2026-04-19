@@ -60,13 +60,16 @@ nav{
 .nav-brand{
   display:flex;align-items:center;
   text-decoration:none;
-  height:40px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;
+  font-style:italic;
+  font-weight:500;
+  color:var(--ink);
+  letter-spacing:-.01em;
+  line-height:1;
+  transition:color .2s;
 }
-.nav-brand img{
-  height:100%;width:auto;
-  display:block;
-  mix-blend-mode:multiply;
-}
+.nav-brand:hover{color:var(--olive)}
 .nav-links{
   display:flex;align-items:center;gap:40px;
 }
@@ -693,9 +696,18 @@ footer{
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:24px;
 }
-.footer-brand{height:30px;display:flex;align-items:center}
-.footer-brand img{height:100%;width:auto;mix-blend-mode:multiply}
-.footer-links{display:flex;gap:28px}
+.footer-brand{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;
+  font-style:italic;
+  font-weight:500;
+  color:var(--ink);
+  letter-spacing:-.005em;
+  text-decoration:none;
+  transition:color .2s;
+}
+.footer-brand:hover{color:var(--olive)}
+.footer-links{display:flex;gap:28px;flex-wrap:wrap;justify-content:center}
 .footer-links a{
   font-size:12px;color:var(--muted);
   text-decoration:none;letter-spacing:.14em;
@@ -831,9 +843,7 @@ export default function Home() {
 
       <nav>
         <div className="nav-inner">
-          <a href="#" className="nav-brand" aria-label="L'Ansouisienne Institut">
-            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
-          </a>
+          <a href="#" className="nav-brand" aria-label="L'Ansouisienne Institut">l'Ansouisienne</a>
           <div className="nav-links">
             <a href="#soins">Soins</a>
             <a href="#philosophie">Philosophie</a>
@@ -1101,12 +1111,12 @@ export default function Home() {
 
       <footer>
         <div className="footer-inner">
-          <div className="footer-brand">
-            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
-          </div>
+          <a href="/" className="footer-brand">l'Ansouisienne</a>
           <div className="footer-links">
+            <a href="/mentions-legales">Mentions légales</a>
+            <a href="/confidentialite">Confidentialité</a>
+            <a href="/cgv">CGV</a>
             <a href="https://www.instagram.com/lansouisienne/" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://www.facebook.com/lansouisienne/" target="_blank" rel="noopener">Facebook</a>
             <a href="https://www.planity.com/lansouisienne-84240" target="_blank" rel="noopener">Planity</a>
           </div>
           <div className="footer-copy">© 2026 · Ansouis, Luberon</div>
