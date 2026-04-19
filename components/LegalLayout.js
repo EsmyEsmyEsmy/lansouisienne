@@ -56,16 +56,11 @@ nav{
 .nav-brand{
   display:flex;align-items:center;
   text-decoration:none;
-  font-family:'Cormorant Garamond',serif;
-  font-size:26px;
-  font-style:italic;
-  font-weight:500;
-  color:var(--ink);
-  letter-spacing:-.01em;
-  line-height:1;
-  transition:color .2s;
+  height:44px;
+  transition:opacity .2s;
 }
-.nav-brand:hover{color:var(--olive)}
+.nav-brand:hover{opacity:.75}
+.nav-brand img{height:100%;width:auto;display:block;mix-blend-mode:multiply}
 .nav-links{display:flex;align-items:center;gap:40px}
 .nav-links a{
   color:var(--ink-soft);text-decoration:none;
@@ -271,16 +266,13 @@ footer{
   flex-wrap:wrap;gap:24px;
 }
 .footer-brand{
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;
-  font-style:italic;
-  font-weight:500;
-  color:var(--ink);
-  letter-spacing:-.005em;
+  height:34px;
+  display:flex;align-items:center;
   text-decoration:none;
-  transition:color .2s;
+  transition:opacity .2s;
 }
-.footer-brand:hover{color:var(--olive)}
+.footer-brand:hover{opacity:.75}
+.footer-brand img{height:100%;width:auto;display:block;mix-blend-mode:multiply}
 .footer-links{display:flex;gap:28px;flex-wrap:wrap}
 .footer-links a{
   font-size:12px;color:var(--muted);
@@ -324,7 +316,9 @@ export default function LegalLayout({ children, eyebrow, title, titleEm, updated
 
       <nav>
         <div className="nav-inner">
-          <a href="/" className="nav-brand" aria-label="L'Ansouisienne Institut">l'Ansouisienne</a>
+          <a href="/" className="nav-brand" aria-label="L'Ansouisienne Institut">
+            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+          </a>
           <div className="nav-links">
             <a href="/#soins">Soins</a>
             <a href="/#philosophie">Philosophie</a>
@@ -355,7 +349,9 @@ export default function LegalLayout({ children, eyebrow, title, titleEm, updated
 
       <footer>
         <div className="footer-inner">
-          <a href="/" className="footer-brand">l'Ansouisienne</a>
+          <a href="/" className="footer-brand" aria-label="L'Ansouisienne Institut">
+            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+          </a>
           <div className="footer-links">
             <a href="/mentions-legales">Mentions légales</a>
             <a href="/confidentialite">Confidentialité</a>
