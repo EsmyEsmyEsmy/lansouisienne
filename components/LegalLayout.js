@@ -56,11 +56,11 @@ nav{
 .nav-brand{
   display:flex;align-items:center;
   text-decoration:none;
-  height:44px;
+  height:58px;
   transition:opacity .2s;
 }
 .nav-brand:hover{opacity:.75}
-.nav-brand img{height:100%;width:auto;display:block;mix-blend-mode:multiply}
+.nav-brand img{height:100%;width:auto;display:block}
 .nav-links{display:flex;align-items:center;gap:40px}
 .nav-links a{
   color:var(--ink-soft);text-decoration:none;
@@ -266,13 +266,13 @@ footer{
   flex-wrap:wrap;gap:24px;
 }
 .footer-brand{
-  height:34px;
+  height:42px;
   display:flex;align-items:center;
   text-decoration:none;
   transition:opacity .2s;
 }
 .footer-brand:hover{opacity:.75}
-.footer-brand img{height:100%;width:auto;display:block;mix-blend-mode:multiply}
+.footer-brand img{height:100%;width:auto;display:block}
 .footer-links{display:flex;gap:28px;flex-wrap:wrap}
 .footer-links a{
   font-size:12px;color:var(--muted);
@@ -289,6 +289,8 @@ footer{
 /* RESPONSIVE */
 @media(max-width:768px){
   .nav-inner{padding:12px 20px}
+  .nav-brand{height:44px}
+  .footer-brand{height:36px}
   .nav-links{display:none}
   .legal-hero{padding:120px 20px 60px}
   .legal-content{padding:0 20px 80px}
@@ -317,7 +319,7 @@ export default function LegalLayout({ children, eyebrow, title, titleEm, updated
       <nav>
         <div className="nav-inner">
           <a href="/" className="nav-brand" aria-label="L'Ansouisienne Institut">
-            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+            <img src="/images/logo.png" alt="L'Ansouisienne Institut" />
           </a>
           <div className="nav-links">
             <a href="/#soins">Soins</a>
@@ -350,7 +352,7 @@ export default function LegalLayout({ children, eyebrow, title, titleEm, updated
       <footer>
         <div className="footer-inner">
           <a href="/" className="footer-brand" aria-label="L'Ansouisienne Institut">
-            <img src="/images/logo.jpg" alt="L'Ansouisienne Institut" />
+            <img src="/images/logo.png" alt="L'Ansouisienne Institut" />
           </a>
           <div className="footer-links">
             <a href="/mentions-legales">Mentions légales</a>
